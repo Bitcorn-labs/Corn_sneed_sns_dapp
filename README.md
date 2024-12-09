@@ -1,52 +1,60 @@
-# DOGMI Token Conversion
+# BITCORN Token Conversion
 
-This repository contains the modified code for converting old DOGMI tokens to new DOGMI tokens on the Internet Computer (IC) platform, managed through the dogmi_sneed_sns_dapp canister.
+This repository contains the modified code for converting old BITCORN tokens to new SNS BITCORN tokens on the Internet Computer (IC) platform, managed through the bitcorn_sneed_sns_dapp canister.
 
 ## Overview
 
-The DOGMI token conversion process involves transferring old DOGMI tokens to the dogmi_sneed_sns_dapp canister, verifying balances, and converting them to new DOGMI tokens.
+The BITCORN token conversion process involves transferring old BITCORN tokens to the bitcorn_sneed_sns_dapp canister, verifying balances, and converting them to new BITCORN tokens.
 
 ## Process Steps
 
-1. **Token Acquisition**: Ensure you have old DOGMI tokens for conversion.
+1. **Token Acquisition**: Ensure you have old BITCORN tokens for conversion.
 
-2. **Old DOGMI Token**: The old DOGMI token canister is already deployed.
-   - **Old Token Canister**: `7tx3o-zyaaa-aaaak-aes6q-cai`
+2. **Old BITCORN Token**: The old BITCORN token canister is already deployed.
 
-3. **New DOGMI Token and Indexer Deployment**: The new DOGMI token and its indexer will be deployed during the SNS launch.
+   - **Old Token Canister**: `edypu-bqaaa-aaaak-afknq-cai`
 
-4. **dogmi_sneed_sns_dapp Configuration and Modification**:
-   - **DOGMI Sneed Dapp Backend Canister**: `kw5rk-raaaa-aaaai-qpfoa-cai`
+3. **New BITCORN Token and Indexer Deployment**: The new BITCORN token and its indexer will be deployed during the SNS launch.
+
+4. **bitcorn_sneed_sns_dapp Configuration and Modification**:
+
+   - **BITCORN Sneed Dapp Backend Canister**: `..` **To be declared**
    - Removed the test folder.
-   - Modified the `OldTokenType` to match the standards and methods of the old DOGMI tokens with custom transactions.
+   - Modified the `OldTokenType` to match the standards and methods of the old BITCORN tokens with custom transactions.
    - Modified the `NewTokenType` to ICRC1.
-   - Modified some init arguments according to DOGMI conversion requirements.
+   - Modified some init arguments according to BITCORN conversion requirements.
 
-5. **Old Token Transfer**: Transfer the required amount of old DOGMI tokens from your account to the dogmi_sneed_sns_dapp canister.
+5. **Old Token Transfer**: Transfer the required amount of old BITCORN tokens from your account to the bitcorn_sneed_sns_dapp canister.
+
    - Important: Transfer more than 500,000 old tokens to ensure successful conversion, as the new token fee is 50 new tokens.
 
-6. **New Token Allocation**: Transfer the necessary amount of new DOGMI tokens to the dogmi_sneed_sns_dapp canister. This amount should be sufficient to cover all potential conversions. This will be done through a proposal after the SNS launch.
+6. **New Token Allocation**: Transfer the necessary amount of new BITCORN tokens to the bitcorn_sneed_sns_dapp canister. This amount should be sufficient to cover all potential conversions. This will be done through a proposal after the SNS launch.
 
-7. **Balance Verification**: Call the check balance after providing your principal ID on the DOGMI Token Converter frontend.
-   - **Frontend URL**: [DOGMI Token Converter](https://kr4x6-4yaaa-aaaai-qpfoq-cai.icp0.io/)
+7. **Balance Verification**: Call the check balance after providing your principal ID on the BITCORN Token Converter frontend.
 
-8. **Token Conversion**: Click the convert button to initiate the conversion process. This function will transfer new DOGMI tokens to your account based on your old token balance.
+   - **Frontend URL**: `[BITCORN Token Converter](to-be-declared)`
 
-9. **Final Balance Check**: Check your balance of new DOGMI tokens.
+8. **Token Conversion**: Click the convert button to initiate the conversion process. This function will transfer new BITCORN tokens to your account based on your old token balance.
+
+9. **Final Balance Check**: Check your balance of new BITCORN tokens.
 
 ## Major Changes in Conversion Process
 
-Due to the old DOGMI token's lack of an index canister and incomplete support for ICRC1, we modified the IndexAccount method:
+Due to the old BITCORN token's lack of an index canister and incomplete support for ICRC1, we modified the IndexAccount method:
+
 - The previous method fetched all old token transactions using an indexer and then called `IndexOldBalance` to get the required old balance.
 - We wrote a custom method `fetchOldBalance`, which iteratively calls the transaction methods of the old token canister, fetching 25,000 transactions in each iteration. It calculates the old balances based on fetched transactions and returns the required old balances.
 
 - **Updated Code**:
   In lib.mo IndexAccount function :
+
   ```motoko
   // Fetching old balances using the custom fetchOldBalance method
   let old_balance_result = await* fetchOldBalance(context, account);
   ```
+
   New Method fetchOldBalance:
+
   ```motoko
   // Fetch and calculate the old balances using the old transactions method
   public func fetchOldBalance(context : T.ConverterContext, account : T.Account) : async* T.IndexOldBalanceResult {
@@ -80,9 +88,9 @@ Due to the old DOGMI token's lack of an index canister and incomplete support fo
       while (hasMore) {
           // Fetch transactions from the old token canister
           let result = await state.persistent.old_token_canister.transaction(offset, limit);
-          
+
           totalElements := result.totalElements;
-          
+
           for (tx in result.content.vals()) {
               // Check if the transaction involves the given account
               if (tx.from == Principal.toText(account.owner) or tx.to == Principal.toText(account.owner)) {
@@ -126,7 +134,7 @@ Due to the old DOGMI token's lack of an index canister and incomplete support fo
       };
 
       // Check if the account is considered a "Burner"
-      let is_burner = old_sent_acct_to_dapp_d12 >= settings.old_burner_min_amount_d12; 
+      let is_burner = old_sent_acct_to_dapp_d12 >= settings.old_burner_min_amount_d12;
 
       // Return the result of the indexing operation
       return {
@@ -172,20 +180,22 @@ To install and run the project locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/AccuSet/dogmi_sneed_sns_dapp.git
+   git clone https://github.com/Bitcorn-labs/Corn_sneed_sns_dapp.git
    ```
-   
 2. Navigate to the project directory:
+
    ```bash
-   cd dogmi_sneed_sns_dapp
+   cd Corn_sneed_sns_dapp
    ```
 
 3. Install dependencies:
+
    ```bash
    npm install
    ```
 
 4. Start the Internet Computer local replica:
+
    ```bash
    dfx start
    ```

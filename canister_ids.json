@@ -1,9 +1,9 @@
 {
-  "dogmi_sneed_dapp_backend": {
+  "bitcorn_sneed_dapp_backend": {
     "ic": "kw5rk-raaaa-aaaai-qpfoa-cai",
     "local": "bd3sg-teaaa-aaaaa-qaaba-cai"
   },
-  "dogmi_sneed_dapp_frontend": {
+  "bitcorn_sneed_dapp_frontend": {
     "ic": "kr4x6-4yaaa-aaaai-qpfoq-cai",
     "local": "bkyz2-fmaaa-aaaaa-qaaaq-cai"
   }

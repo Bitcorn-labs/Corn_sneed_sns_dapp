@@ -1,21 +1,41 @@
 {
   "canisters": {
-    "dogmi_sneed_dapp_backend": {
-      "main": "src/dogmi_sneed_dapp_backend/main.mo",
+    "bitcorn_sneed_dapp_backend": {
+      "main": "src/bitcorn_sneed_dapp_backend/main.mo",
       "type": "motoko"
     },
-    "dogmi_sneed_dapp_frontend": {
-      "dependencies": [
-        "dogmi_sneed_dapp_backend"
-      ],
+    "bitcorn_sneed_dapp_frontend": {
+      "dependencies": ["bitcorn_sneed_dapp_backend"],
       "frontend": {
-        "entrypoint": "src/dogmi_sneed_dapp_frontend/src/index.html"
+        "entrypoint": "src/bitcorn_sneed_dapp_frontend/src/index.html"
       },
       "source": [
-        "src/dogmi_sneed_dapp_frontend/assets",
-        "dist/dogmi_sneed_dapp_frontend/"
+        "src/bitcorn_sneed_dapp_frontend/assets",
+        "dist/bitcorn_sneed_dapp_frontend/"
       ],
       "type": "assets"
+    },
+    "mock_old_token_indexer": {
+      "type": "custom",
+      "candid": "https://raw.githubusercontent.com/dfinity/ic/a62848817cec7ae50618a87a526c85d020283fd9/rs/ledger_suite/icrc1/index-ng/index-ng.did",
+      "wasm": "https://download.dfinity.systems/ic/a62848817cec7ae50618a87a526c85d020283fd9/canisters/ic-icrc1-index-ng.wasm.gz",
+      "dependencies": ["mock_old_token_ledger"]
+    },
+    "mock_new_token_indexer": {
+      "type": "custom",
+      "candid": "https://raw.githubusercontent.com/dfinity/ic/a62848817cec7ae50618a87a526c85d020283fd9/rs/ledger_suite/icrc1/index-ng/index-ng.did",
+      "wasm": "https://download.dfinity.systems/ic/a62848817cec7ae50618a87a526c85d020283fd9/canisters/ic-icrc1-index-ng.wasm.gz",
+      "dependencies": ["mock_new_token_ledger"]
+    },
+    "mock_old_token_ledger": {
+      "type": "custom",
+      "candid": "https://github.com/dfinity/ic/releases/download/ledger-suite-icrc-2024-11-28/ledger.did",
+      "wasm": "https://github.com/dfinity/ic/releases/download/ledger-suite-icrc-2024-11-28/ic-icrc1-ledger.wasm.gz"
+    },
+    "mock_new_token_ledger": {
+      "type": "custom",
+      "candid": "https://github.com/dfinity/ic/releases/download/ledger-suite-icrc-2024-11-28/ledger.did",
+      "wasm": "https://github.com/dfinity/ic/releases/download/ledger-suite-icrc-2024-11-28/ic-icrc1-ledger.wasm.gz"
     }
   },
   "defaults": {

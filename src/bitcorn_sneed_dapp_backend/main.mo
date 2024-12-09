@@ -19,7 +19,7 @@ import T "../Types";
 shared ({ caller = _initializer_ }) actor class SneedConverter() : async T.ConverterInterface = this {
 
     // SNS governance canister principal id 
-    let sns_governance : Principal = Principal.fromText("ni4my-zaaaa-aaaaq-aadra-cai");
+    let sns_governance : Principal = Principal.fromText("bd3sg-teaaa-aaaaa-qaaba-cai"); // change to blank before deploying to ic0, change to bitcorn sns_governance via proposal after I believe.
 
     var state = Converter.init();
 
